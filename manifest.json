@@ -1,0 +1,76 @@
+{
+  "name": "QuickBrief – Professionelle Musterbriefe",
+  "short_name": "QuickBrief",
+  "description": "Erstelle professionelle Kündigungen, Beschwerden, Widerrufe und mehr – kostenlos in 30 Sekunden. DIN 5008 konform.",
+  "start_url": "./quickbrief.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#07070a",
+  "theme_color": "#6c5ce7",
+  "lang": "de",
+  "categories": ["productivity", "utilities"],
+  "icons": [
+    {
+      "src": "icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Kündigung schreiben",
+      "short_name": "Kündigung",
+      "url": "./quickbrief.html#kuendigung"
+    },
+    {
+      "name": "Beschwerde schreiben",
+      "short_name": "Beschwerde",
+      "url": "./quickbrief.html#beschwerde"
+    }
+  ]
+}

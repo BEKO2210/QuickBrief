@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>QuickBrief – Professionelle Musterbriefe in 30 Sekunden</title>
+<meta name="description" content="Erstelle professionelle Kündigungen, Beschwerden, Widerrufe und mehr – kostenlos in 30 Sekunden. DIN 5008 konform, sofort druckbar.">
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#6c5ce7">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="QuickBrief">
+<meta name="application-name" content="QuickBrief">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="msapplication-TileColor" content="#07070a">
+<meta name="msapplication-TileImage" content="icons/icon-144x144.png">
+
+<!-- Icons -->
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="QuickBrief – Profi-Briefe in 30 Sekunden">
+<meta property="og:description" content="Kündigung, Beschwerde, Widerruf & mehr – kostenlos, DIN 5008, sofort druckbar.">
+<meta property="og:image" content="icons/icon-512x512.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="QuickBrief – Profi-Briefe in 30 Sekunden">
+<meta name="twitter:description" content="Kündigung, Beschwerde, Widerruf & mehr – kostenlos, DIN 5008, sofort druckbar.">
+<meta name="twitter:image" content="icons/icon-512x512.png">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@400;500;700;800;900&family=Satoshi:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+--bg:#07070a;--bg-card:#0f0f15;--bg-elevated:#16161f;--bg-input:#1a1a25;
+--border:#2a2a3a;--border-hover:#3d3d55;
+--text:#f0eff4;--text-sec:#9291a5;--text-muted:#5e5d72;
+--accent:#6c5ce7;--accent-bright:#a29bfe;--accent-glow:rgba(108,92,231,0.25);
+--green:#00d2a0;--green-glow:rgba(0,210,160,0.2);
+--gradient:linear-gradient(135deg,#6c5ce7 0%,#a29bfe 50%,#00d2a0 100%);
+--radius:16px;--radius-sm:10px;--radius-xs:6px;
+--font-d:'Cabinet Grotesk',sans-serif;--font-b:'Satoshi',sans-serif;--font-m:'JetBrains Mono',monospace;
+--tr:all .3s cubic-bezier(.4,0,.2,1);
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-b);background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+.bg-grid{position:fixed;inset:0;z-index:0;pointer-events:none;
+background-image:linear-gradient(rgba(108,92,231,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(108,92,231,.03) 1px,transparent 1px);background-size:60px 60px}
+.bg-orbs{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.bg-orbs::before,.bg-orbs::after{content:'';position:absolute;border-radius:50%;filter:blur(120px);animation:orbF 25s ease-in-out infinite alternate}
+.bg-orbs::before{width:600px;height:600px;background:rgba(108,92,231,.08);top:-200px;right:-100px}
+.bg-orbs::after{width:500px;height:500px;background:rgba(0,210,160,.06);bottom:-150px;left:-100px;animation-delay:-12s}
+@keyframes orbF{0%{transform:translate(0,0) scale(1)}50%{transform:translate(-80px,60px) scale(1.15)}100%{transform:translate(40px,-40px) scale(.95)}}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;background:rgba(7,7,10,.8);backdrop-filter:blur(24px) saturate(1.5);border-bottom:1px solid var(--border)}
+.nav-logo{display:flex;align-items:center;gap:10px;font-family:var(--font-d);font-weight:800;font-size:1.2rem;letter-spacing:-.03em;color:var(--text);text-decoration:none}
+.logo-img{width:32px;height:32px;border-radius:8px;object-fit:contain}
+.nav-stat{display:flex;align-items:center;gap:6px;font-size:.78rem;color:var(--text-sec)}
+.nav-stat .dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s ease-in-out infinite}
+.nav-stat .num{font-family:var(--font-m);font-weight:500;color:var(--text)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* HERO */
+.hero{position:relative;z-index:1;padding:8rem 2rem 4rem;text-align:center}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;background:var(--bg-elevated);border:1px solid var(--border);border-radius:100px;font-size:.78rem;font-weight:600;color:var(--accent-bright);margin-bottom:2rem;animation:fadeUp .6s ease-out}
+.hero-badge .pd{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 2s ease-in-out infinite}
+.hero h1{font-family:var(--font-d);font-size:clamp(2.8rem,7vw,5.5rem);font-weight:900;line-height:1.05;letter-spacing:-.04em;max-width:800px;margin:0 auto 1.5rem;animation:fadeUp .6s ease-out .1s both}
+.hero h1 .gt{background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero .sub{font-size:1.15rem;color:var(--text-sec);max-width:520px;margin:0 auto 2.5rem;animation:fadeUp .6s ease-out .2s both}
+.hero-metrics{display:flex;align-items:center;justify-content:center;gap:2.5rem;animation:fadeUp .6s ease-out .3s both}
+.hm-v{font-family:var(--font-d);font-size:1.6rem;font-weight:800}
+.hm-l{font-size:.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;margin-top:2px}
+.hm-div{width:1px;height:32px;background:var(--border)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+/* CONTAINER */
+.container{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:0 1.5rem 4rem}
+
+/* SECTION HEADER */
+.sh{display:flex;align-items:center;gap:12px;margin-bottom:1.25rem;padding-top:1rem}
+.sh .ln{flex:1;height:1px;background:var(--border)}
+.sh .tg{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--text-muted);white-space:nowrap}
+
+/* CATEGORY GRID */
+.cg{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+@media(max-width:768px){.cg{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:480px){.cg{grid-template-columns:repeat(2,1fr)}}
+.cc{position:relative;display:flex;flex-direction:column;align-items:center;gap:10px;padding:1.5rem .75rem 1.25rem;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;transition:var(--tr);overflow:hidden;text-align:center}
+.cc::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--accent-glow) 0%,transparent 60%);opacity:0;transition:opacity .3s}
+.cc:hover{border-color:var(--border-hover);transform:translateY(-4px);box-shadow:0 0 60px rgba(108,92,231,.15)}
+.cc:hover::before{opacity:1}
+.cc.active{border-color:var(--accent);background:var(--bg-elevated);box-shadow:0 0 0 1px var(--accent),0 0 60px var(--accent-glow)}
+.cc.active::before{opacity:1}
+.ci{position:relative;z-index:1;width:48px;height:48px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;border-radius:12px;background:var(--bg-elevated);border:1px solid var(--border);transition:var(--tr)}
+.cc.active .ci{background:var(--accent);border-color:var(--accent);box-shadow:0 4px 20px var(--accent-glow)}
+.cl{position:relative;z-index:1;font-size:.82rem;font-weight:700;line-height:1.3}
+.cs{position:relative;z-index:1;font-size:.68rem;color:var(--text-muted)}
+
+/* FORM PANEL */
+.fp{display:none;margin-top:2rem;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;animation:panelIn .4s ease-out}
+.fp.visible{display:block}
+@keyframes panelIn{from{opacity:0;transform:translateY(16px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+.fph{display:flex;align-items:center;gap:14px;padding:1.5rem 2rem;border-bottom:1px solid var(--border);background:var(--bg-elevated)}
+.fph .fi{width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;background:var(--accent);border-radius:10px}
+.fph h2{font-family:var(--font-d);font-size:1.2rem;font-weight:800;letter-spacing:-.02em}
+.fph p{font-size:.82rem;color:var(--text-sec);margin-top:2px}
+.fb{padding:2rem}
+.fs{margin-bottom:2rem;padding-bottom:2rem;border-bottom:1px solid var(--border)}
+.fs:last-of-type{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.fst{display:flex;align-items:center;gap:8px;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--accent-bright);margin-bottom:1rem}
+.fst .sd{width:4px;height:4px;border-radius:50%;background:var(--accent)}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.fr:last-child{margin-bottom:0}
+.fr.full{grid-template-columns:1fr}
+@media(max-width:600px){.fr{grid-template-columns:1fr}}
+.fd{display:flex;flex-direction:column;gap:5px}
+.fd label{font-size:.75rem;font-weight:600;color:var(--text-sec);letter-spacing:.02em}
+.fd label .rq{color:var(--accent-bright);margin-left:2px}
+.fd input,.fd select,.fd textarea{padding:11px 14px;background:var(--bg-input);border:1.5px solid var(--border);border-radius:var(--radius-xs);font-family:var(--font-b);font-size:.88rem;color:var(--text);outline:none;transition:var(--tr)}
+.fd input:focus,.fd select:focus,.fd textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
+.fd input::placeholder,.fd textarea::placeholder{color:var(--text-muted)}
+.fd select{cursor:pointer}
+.fd select option{background:var(--bg-card);color:var(--text)}
+.fd textarea{resize:vertical;min-height:80px}
+
+/* BUTTONS */
+.br{display:flex;gap:12px;margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 28px;border:none;border-radius:var(--radius-sm);font-family:var(--font-b);font-size:.88rem;font-weight:700;cursor:pointer;transition:var(--tr);position:relative;overflow:hidden}
+.btn-p{background:var(--accent);color:#fff}
+.btn-p:hover{background:#7c6ef0;transform:translateY(-2px);box-shadow:0 8px 30px var(--accent-glow)}
+.btn-p::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent 40%,rgba(255,255,255,.15) 100%);pointer-events:none}
+.btn-g{background:transparent;color:var(--text-sec);border:1.5px solid var(--border)}
+.btn-g:hover{border-color:var(--text-muted);color:var(--text)}
+.btn-sm{padding:9px 18px;font-size:.8rem;border-radius:var(--radius-xs)}
+@media(max-width:600px){.br{flex-direction:column}.btn{width:100%}}
+
+/* OUTPUT */
+.op{display:none;margin-top:2.5rem;animation:panelIn .4s ease-out}
+.op.visible{display:block}
+.ot{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:12px}
+.ot h2{font-family:var(--font-d);font-size:1.3rem;font-weight:800;letter-spacing:-.02em}
+.din-tag{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;background:var(--green-glow);border:1px solid rgba(0,210,160,.3);border-radius:100px;font-size:.7rem;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.06em}
+.oa{display:flex;gap:8px;flex-wrap:wrap}
+
+/* LETTER FRAME */
+.lf{background:#fff;border-radius:var(--radius);box-shadow:0 0 0 1px var(--border),0 0 60px rgba(108,92,231,.15);overflow:hidden;color:#1a1a1a;font-family:'Satoshi','Segoe UI',sans-serif;font-size:10.5pt;line-height:1.65}
+.li{padding:55px 65px 45px 75px;min-height:520px;position:relative}
+.li .lab{position:absolute;top:0;left:0;right:0;height:4px;background:var(--gradient)}
+.l-sender{margin-bottom:6px;font-size:10pt;line-height:1.5;white-space:pre-line}
+.l-sender strong{font-weight:700}
+.l-rueck{font-size:7pt;color:#999;text-decoration:underline;margin-top:14px;margin-bottom:2px}
+.l-empf{min-height:105px;margin-bottom:20px;font-size:10.5pt;line-height:1.5;white-space:pre-line}
+.l-date{text-align:right;margin-bottom:22px;font-size:10pt;color:#555}
+.l-betreff{font-weight:700;font-size:10.5pt;margin-bottom:20px;white-space:pre-line}
+.l-body{white-space:pre-wrap;font-size:10.5pt;line-height:1.7}
+.l-sig{margin-top:32px;font-size:10.5pt;white-space:pre-line}
+.l-sig .sn{font-weight:700}
+
+@media(max-width:768px){
+  .nav{padding:0 1rem}
+  .nav-stat span:not(.num){display:none}
+  .hero{padding:7rem 1.25rem 3rem}
+  .hero-metrics{gap:1.5rem}
+  .hm-v{font-size:1.2rem}
+  .fph{padding:1.25rem}
+  .fb{padding:1.25rem}
+  .li{padding:28px 22px 28px 28px}
+}
+
+/* SHARE */
+.ss{display:none;margin-top:1.5rem;padding:1.5rem;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);text-align:center}
+.ss.visible{display:block;animation:panelIn .4s ease-out .2s both}
+.ss p{font-size:.88rem;color:var(--text-sec);margin-bottom:1rem}
+.ss p strong{color:var(--text)}
+.sbs{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.sb{display:inline-flex;align-items:center;gap:6px;padding:9px 20px;border-radius:100px;font-size:.78rem;font-weight:600;font-family:var(--font-b);border:1px solid var(--border);background:var(--bg-elevated);color:var(--text-sec);cursor:pointer;transition:var(--tr)}
+.sb:hover{border-color:var(--accent);color:var(--accent-bright)}
+
+/* TOAST */
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(80px);background:var(--green);color:#07070a;padding:12px 28px;border-radius:100px;font-size:.85rem;font-weight:700;box-shadow:0 8px 30px var(--green-glow);z-index:1000;opacity:0;transition:all .4s cubic-bezier(.34,1.56,.64,1);display:flex;align-items:center;gap:8px}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* FOOTER */
+.sf{position:relative;z-index:1;text-align:center;padding:2rem;font-size:.75rem;color:var(--text-muted);border-top:1px solid var(--border)}
+.sf a{color:var(--accent-bright);text-decoration:none}
+.sf a:hover{text-decoration:underline}
+.sf .leg{margin-top:6px;font-size:.7rem;opacity:.7}
+
+/* ===== UIVERSE ANIMATIONS ===== */
+
+/* Nav entrance */
+.nav{animation:navSlide .6s cubic-bezier(.4,0,.2,1)}
+@keyframes navSlide{from{opacity:0;transform:translateY(-100%)}to{opacity:1;transform:translateY(0)}}
+.logo-img{transition:all .4s cubic-bezier(.34,1.56,.64,1)}
+.nav-logo:hover .logo-img{transform:rotate(-12deg) scale(1.15);filter:drop-shadow(0 0 12px var(--accent-glow))}
+
+/* Hero badge shimmer sweep */
+.hero-badge{position:relative;overflow:hidden}
+.hero-badge::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(162,155,254,.18),transparent);animation:shimmer 3.5s ease-in-out infinite 1.2s;pointer-events:none}
+@keyframes shimmer{0%,100%{left:-100%}50%{left:200%}}
+
+/* 30 Sekunden - animated gradient glow */
+.hero h1 .gt{background:linear-gradient(135deg,#6c5ce7 0%,#a29bfe 20%,#00d2a0 50%,#a29bfe 80%,#6c5ce7 100%);background-size:300% 300%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:gradShift 4s ease infinite}
+@keyframes gradShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+#sec30{display:inline-block;background:linear-gradient(135deg,#6c5ce7 0%,#a29bfe 20%,#00d2a0 50%,#a29bfe 80%,#6c5ce7 100%);background-size:300% 300%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:gradShift 4s ease infinite;transition:transform .1s}
+
+/* Category cards stagger entrance */
+.cc{opacity:0;animation:cardPop .55s cubic-bezier(.4,0,.2,1) forwards}
+.cc:nth-child(1){animation-delay:.1s}.cc:nth-child(2){animation-delay:.16s}.cc:nth-child(3){animation-delay:.22s}
+.cc:nth-child(4){animation-delay:.28s}.cc:nth-child(5){animation-delay:.34s}.cc:nth-child(6){animation-delay:.4s}
+@keyframes cardPop{from{opacity:0;transform:translateY(24px) scale(.9)}to{opacity:1;transform:translateY(0) scale(1)}}
+
+/* Card hover enhanced */
+.cc{transition:all .4s cubic-bezier(.4,0,.2,1)}
+.cc:hover{border-color:var(--border-hover);transform:translateY(-7px);box-shadow:0 20px 50px rgba(108,92,231,.22)}
+.cc:active{transform:translateY(-2px) scale(.97)!important;transition:transform .12s}
+
+/* Icon micro-interaction */
+.ci{transition:all .45s cubic-bezier(.34,1.56,.64,1)}
+.cc:hover .ci{transform:scale(1.15) rotate(8deg)}
+.cc.active .ci{animation:iconBounce .5s cubic-bezier(.34,1.56,.64,1)}
+@keyframes iconBounce{0%{transform:scale(1)}35%{transform:scale(1.3) rotate(-10deg)}65%{transform:scale(.9) rotate(3deg)}100%{transform:scale(1) rotate(0)}}
+
+/* Primary button - gradient shift + shine sweep */
+.btn{transition:all .4s cubic-bezier(.4,0,.2,1)}
+.btn-p{background:linear-gradient(135deg,#6c5ce7 0%,#7c6ef0 50%,#6c5ce7 100%);background-size:200% 200%;animation:btnGrad 3s ease infinite}
+.btn-p::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.22) 50%,transparent 100%);z-index:2;pointer-events:none}
+.btn-p:hover::before{left:100%;transition:left .65s ease}
+.btn-p:hover{transform:translateY(-3px);box-shadow:0 0 24px var(--accent-glow),0 14px 44px rgba(108,92,231,.35)}
+.btn-p:active{transform:translateY(0) scale(.95)!important;box-shadow:0 0 8px var(--accent-glow);transition:all .1s}
+@keyframes btnGrad{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+
+/* Ghost button - fill slide */
+.btn-g{position:relative;z-index:1;overflow:hidden}
+.btn-g::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--accent),#7c6ef0);z-index:-1;opacity:0;transition:opacity .4s ease}
+.btn-g:hover{border-color:var(--accent);color:#fff;transform:translateY(-2px);box-shadow:0 10px 30px rgba(108,92,231,.2)}
+.btn-g:hover::before{opacity:1}
+.btn-g:active{transform:translateY(0) scale(.95)!important;transition:all .1s}
+
+/* Share buttons - lift + icon dance */
+.sb{position:relative;overflow:hidden;transition:all .4s cubic-bezier(.4,0,.2,1)}
+.sb::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(108,92,231,.12),transparent);opacity:0;transition:opacity .35s;pointer-events:none}
+.sb:hover{border-color:var(--accent);color:var(--accent-bright);transform:translateY(-3px);box-shadow:0 8px 24px rgba(108,92,231,.18)}
+.sb:hover::before{opacity:1}
+.sb:active{transform:translateY(0) scale(.94)!important;transition:all .1s}
+.sb svg{transition:transform .45s cubic-bezier(.34,1.56,.64,1)}
+.sb:hover svg{transform:scale(1.25) rotate(-8deg)}
+
+/* Input focus glow */
+.fd input,.fd select,.fd textarea{transition:all .35s cubic-bezier(.4,0,.2,1)}
+.fd input:focus,.fd select:focus,.fd textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow),0 6px 24px rgba(108,92,231,.12);transform:translateY(-1px)}
+
+/* Section dot breathing */
+.fst .sd{animation:dotBreath 2s ease-in-out infinite}
+@keyframes dotBreath{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(2)}}
+
+/* Form header icon hover */
+.fi{transition:all .45s cubic-bezier(.34,1.56,.64,1)}
+.fph:hover .fi{transform:rotate(-10deg) scale(1.12);box-shadow:0 6px 24px var(--accent-glow)}
+
+/* Section header line expand */
+.sh .ln{transform-origin:left;animation:lineGrow .8s ease-out .5s both}
+@keyframes lineGrow{from{transform:scaleX(0);opacity:0}to{transform:scaleX(1);opacity:1}}
+
+/* DIN 5008 tag pulse glow */
+.din-tag{animation:dinGlow 2.5s ease-in-out infinite}
+@keyframes dinGlow{0%,100%{box-shadow:0 0 0 0 rgba(0,210,160,.2)}50%{box-shadow:0 0 18px 3px rgba(0,210,160,.15)}}
+
+/* Letter frame entrance */
+.op.visible .lf{animation:letterReveal .7s cubic-bezier(.4,0,.2,1)}
+@keyframes letterReveal{from{opacity:0;transform:translateY(30px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+
+/* Enhanced panel entrance */
+@keyframes panelIn{from{opacity:0;transform:translateY(24px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+
+/* Toast bounce */
+.toast.show{animation:toastPop .55s cubic-bezier(.34,1.56,.64,1) forwards}
+@keyframes toastPop{from{opacity:0;transform:translateX(-50%) translateY(50px) scale(.85)}to{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}}
+
+/* Footer link underline sweep */
+.sf a{position:relative;text-decoration:none!important;transition:color .3s}
+.sf a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1.5px;background:linear-gradient(90deg,var(--accent),var(--accent-bright));transition:width .4s cubic-bezier(.4,0,.2,1)}
+.sf a:hover::after{width:100%}
+
+/* Ripple click effect */
+.ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.28);transform:scale(0);animation:rippleOut .55s ease-out;pointer-events:none;z-index:20}
+@keyframes rippleOut{to{transform:scale(4);opacity:0}}
+
+/* Metrics numbers */
+.hm-v{transition:all .3s}
+
+/* Modal */
+.modal-overlay{position:fixed;inset:0;z-index:200;background:rgba(7,7,10,.85);backdrop-filter:blur(16px);display:none;align-items:flex-start;justify-content:center;padding:2rem;overflow-y:auto;animation:modalBgIn .3s ease}
+.modal-overlay.open{display:flex}
+@keyframes modalBgIn{from{opacity:0}to{opacity:1}}
+.modal{width:100%;max-width:680px;margin:3rem auto;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;animation:modalIn .4s cubic-bezier(.4,0,.2,1)}
+@keyframes modalIn{from{opacity:0;transform:translateY(30px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+.modal-head{display:flex;align-items:center;justify-content:space-between;padding:1.5rem 2rem;border-bottom:1px solid var(--border);background:var(--bg-elevated)}
+.modal-head h2{font-family:var(--font-d);font-size:1.2rem;font-weight:800;letter-spacing:-.02em}
+.modal-close{width:36px;height:36px;display:flex;align-items:center;justify-content:center;background:var(--bg-input);border:1px solid var(--border);border-radius:8px;color:var(--text-sec);cursor:pointer;transition:var(--tr);font-size:1.1rem;line-height:1}
+.modal-close:hover{border-color:var(--accent);color:var(--text);background:var(--bg-elevated)}
+.modal-body{padding:2rem;font-size:.88rem;line-height:1.75;color:var(--text-sec)}
+.modal-body h3{font-family:var(--font-d);font-size:1rem;font-weight:700;color:var(--text);margin:1.8rem 0 .6rem;letter-spacing:-.01em}
+.modal-body h3:first-child{margin-top:0}
+.modal-body p{margin-bottom:.75rem}
+.modal-body a{color:var(--accent-bright);text-decoration:none;transition:color .3s}
+.modal-body a:hover{color:var(--text);text-decoration:underline}
+.modal-body ul{margin:0 0 .75rem 1.2rem;list-style:none}
+.modal-body ul li{position:relative;padding-left:1rem;margin-bottom:.4rem}
+.modal-body ul li::before{content:'';position:absolute;left:0;top:.55em;width:5px;height:5px;border-radius:50%;background:var(--accent)}
+.modal-body strong{color:var(--text);font-weight:600}
+.modal-body .legal-contact{padding:1rem 1.25rem;background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius-sm);margin:.75rem 0;line-height:1.8}
+.sf-socials{display:flex;gap:10px;justify-content:center;margin-top:.6rem}
+.sf-socials a{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;border:1px solid var(--border);color:var(--text-muted);transition:var(--tr)}
+.sf-socials a:hover{border-color:var(--accent);color:var(--accent-bright);transform:translateY(-2px)}
+.sf-socials a::after{display:none!important}
+.sf-legal{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:.5rem;font-size:.72rem}
+.sf-legal span{color:var(--text-muted);opacity:.5}
+
+/* ===== PRINT – DIN 5008 ===== */
+@media print{
+  *,*::before,*::after{background:transparent!important;color:#000!important;box-shadow:none!important;text-shadow:none!important}
+  .bg-grid,.bg-orbs,.nav,.hero,.sh,.cg,.fp,.ot,.oa,.ss,.sf,.toast,.lab,.modal-overlay{display:none!important}
+  body{margin:0;padding:0;font-size:11pt;line-height:1.5;font-family:'Segoe UI',Arial,sans-serif}
+  .op{display:block!important;margin:0;padding:0}
+  .lf{border:none!important;border-radius:0!important;box-shadow:none!important}
+  .li{padding:0!important}
+  @page{size:A4;margin:27mm 20mm 20mm 25mm}
+  .l-sender{font-size:10pt;margin-bottom:3mm}
+  .l-rueck{font-size:7pt;color:#666!important;margin-top:3mm;margin-bottom:0}
+  .l-empf{min-height:27.3mm;max-height:27.3mm;margin-bottom:8.46mm;font-size:10pt;line-height:1.4}
+  .l-date{text-align:right;margin-bottom:8.46mm}
+  .l-betreff{font-weight:bold;margin-bottom:6mm}
+  .l-body{font-size:11pt;line-height:1.5}
+  .l-sig{margin-top:12mm}
+}
+</style>
+</head>
+<body>
+<div class="bg-grid"></div>
+<div class="bg-orbs"></div>
+
+<nav class="nav">
+  <a class="nav-logo" href="#"><img class="logo-img" src="icons/icon-96x96.png" alt="QuickBrief" width="32" height="32">QuickBrief</a>
+  <div class="nav-stat"><div class="dot"></div><span><span class="num" id="navC">12.847</span> Briefe erstellt</span></div>
+</nav>
+
+<header class="hero">
+  <div class="hero-badge"><div class="pd"></div>Kostenlos · DIN 5008 · Sofort druckbar</div>
+  <h1>Profi-Briefe in<br><span class="gt"><span id="sec30">30</span> Sekunden.</span></h1>
+  <p class="sub">Kündigung, Beschwerde, Widerruf & mehr – rechtssicher formuliert, fürs Klarsichtfenster formatiert.</p>
+  <div class="hero-metrics">
+    <div><div class="hm-v">6</div><div class="hm-l">Brieftypen</div></div>
+    <div class="hm-div"></div>
+    <div><div class="hm-v">100%</div><div class="hm-l">Kostenlos</div></div>
+    <div class="hm-div"></div>
+    <div><div class="hm-v">DIN 5008</div><div class="hm-l">Druckformat</div></div>
+  </div>
+</header>
+
+<main class="container">
+  <div class="sh"><span class="tg">01 — Brieftyp wählen</span><div class="ln"></div></div>
+  <div class="cg" id="catGrid">
+    <div class="cc" data-t="kuendigung" onclick="sel(this)"><div class="ci"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.12 15.88"/><path d="M14.47 14.48 20 20"/><path d="M8.12 8.12 12 12"/></svg></div><div class="cl">Kündigung</div><div class="cs">Vertrag & Abo</div></div>
+    <div class="cc" data-t="widerruf" onclick="sel(this)"><div class="ci"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M20 20v-7a4 4 0 0 0-4-4H4"/></svg></div><div class="cl">Widerruf</div><div class="cs">Online-Kauf</div></div>
+    <div class="cc" data-t="beschwerde" onclick="sel(this)"><div class="ci"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5v12L3 13v-2z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg></div><div class="cl">Beschwerde</div><div class="cs">Service & Produkt</div></div>
+    <div class="cc" data-t="widerspruch" onclick="sel(this)"><div class="ci"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg></div><div class="cl">Widerspruch</div><div class="cs">Bescheid & Rechnung</div></div>
+    <div class="cc" data-t="mietmangel" onclick="sel(this)"><div class="ci"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div class="cl">Mietmangel</div><div class="cs">Mängelanzeige</div></div>
+    <div class="cc" data-t="fristsetzung" onclick="sel(this)"><div class="ci"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div class="cl">Fristsetzung</div><div class="cs">Mahnung</div></div>
+  </div>
+
+  <!-- === KÜNDIGUNG === -->
+  <div class="fp" id="form-kuendigung">
+    <div class="fph"><div class="fi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.12 15.88"/><path d="M14.47 14.48 20 20"/><path d="M8.12 8.12 12 12"/></svg></div><div><h2>Kündigung schreiben</h2><p>Vertrag, Abo oder Mitgliedschaft ordentlich & fristgerecht kündigen.</p></div></div>
+    <div class="fb">
+      <div class="fs"><div class="fst"><div class="sd"></div>Absender</div>
+        <div class="fr"><div class="fd"><label>Vorname <span class="rq">*</span></label><input id="k-vorname" placeholder="Max"></div><div class="fd"><label>Nachname <span class="rq">*</span></label><input id="k-nachname" placeholder="Mustermann"></div></div>
+        <div class="fr full"><div class="fd"><label>Straße & Hausnr. <span class="rq">*</span></label><input id="k-strasse" placeholder="Musterstraße 1"></div></div>
+        <div class="fr"><div class="fd"><label>PLZ <span class="rq">*</span></label><input id="k-plz" placeholder="70123" maxlength="5"></div><div class="fd"><label>Stadt <span class="rq">*</span></label><input id="k-stadt" placeholder="Stuttgart"></div></div>
+      </div>
+      <div class="fs"><div class="fst"><div class="sd"></div>Empfänger</div>
+        <div class="fr full"><div class="fd"><label>Firmenname <span class="rq">*</span></label><input id="k-firma" placeholder="Vodafone GmbH"></div></div>
+        <div class="fr full"><div class="fd"><label>Abteilung / z.Hd.</label><input id="k-abt" placeholder="Kundenservice (optional)"></div></div>
+        <div class="fr full"><div class="fd"><label>Straße & Hausnr. <span class="rq">*</span></label><input id="k-e-str" placeholder="Kundenstraße 99"></div></div>
+        <div class="fr"><div class="fd"><label>PLZ <span class="rq">*</span></label><input id="k-e-plz" placeholder="40549" maxlength="5"></div><div class="fd"><label>Stadt <span class="rq">*</span></label><input id="k-e-stadt" placeholder="Düsseldorf"></div></div>
+      </div>
+      <div class="fs"><div class="fst"><div class="sd"></div>Details</div>
+        <div class="fr"><div class="fd"><label>Vertragsnr. / Kundennr.</label><input id="k-vnr" placeholder="Optional"></div><div class="fd"><label>Kündigung zum</label><select id="k-termin"><option value="nächstmöglich">Nächstmöglicher Zeitpunkt</option><option value="monatsende">Ende des laufenden Monats</option><option value="jahresende">Ende der Vertragslaufzeit</option></select></div></div>
+        <div class="fr full"><div class="fd"><label>Anmerkungen</label><textarea id="k-anm" placeholder="z.B. Bestätigung per E-Mail an..."></textarea></div></div>
+      </div>
+      <div class="br"><button class="btn btn-p" onclick="gen('kuendigung')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg> Brief erstellen</button><button class="btn btn-g" onclick="reset()">Zurücksetzen</button></div>
+    </div>
+  </div>
+
+  <!-- === WIDERRUF === -->
+  <div class="fp" id="form-widerruf">
+    <div class="fph"><div class="fi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M20 20v-7a4 4 0 0 0-4-4H4"/></svg></div><div><h2>Widerruf schreiben</h2><p>Online-Kauf innerhalb der 14-tägigen Widerrufsfrist zurücknehmen (§ 355 BGB).</p></div></div>
+    <div class="fb">
+      <div class="fs"><div class="fst"><div class="sd"></div>Absender</div>
+        <div class="fr"><div class="fd"><label>Vorname <span class="rq">*</span></label><input id="w-vorname" placeholder="Max"></div><div class="fd"><label>Nachname <span class="rq">*</span></label><input id="w-nachname" placeholder="Mustermann"></div></div>
+        <div class="fr full"><div class="fd"><label>Straße & Hausnr. <span class="rq">*</span></label><input id="w-strasse" placeholder="Musterstraße 1"></div></div>
+        <div class="fr"><div class="fd"><label>PLZ <span class="rq">*</span></label><input id="w-plz" placeholder="70123" maxlength="5"></div><div class="fd"><label>Stadt <span class="rq">*</span></label><input id="w-stadt" placeholder="Stuttgart"></div></div>
+      </div>
+      <div class="fs"><div class="fst"><div class="sd"></div>Empfänger</div>
+        <div class="fr full"><div class="fd"><label>Firmenname <span class="rq">*</span></label><input id="w-firma" placeholder="Amazon EU S.à r.l."></div></div>
+        <div class="fr full"><div class="fd"><label>Abteilung / z.Hd.</label><input id="w-abt" placeholder="Retourenabteilung (optional)"></div></div>
+        <div class="fr full"><div class="fd"><label>Straße & Hausnr. <span class="rq">*</span></label><input id="w-e-str" placeholder="Marcel-Breuer-Str. 12"></div></div>
+        <div class="fr"><div class="fd"><label>PLZ <span class="rq">*</span></label><input id="w-e-plz" placeholder="80807" maxlength="5"></div><div class="fd"><label>Stadt <span class="rq">*</span></label><input id="w-e-stadt" placeholder="München"></div></div>
+      </div>
+      <div class="fs"><div class="fst"><div class="sd"></div>Bestelldetails</div>
+        <div class="fr"><div class="fd"><label>Bestellnummer <span class="rq">*</span></label><input id="w-bnr" placeholder="302-1234567-8901234"></div><div class="fd"><label>Bestelldatum <span class="rq">*</span></label><input type="date" id="w-datum"></div></div>
+        <div class="fr full"><div class="fd"><label>Bestellte Ware <span class="rq">*</span></label><input id="w-ware" placeholder="z.B. Samsung Galaxy S25, Bluetooth-Kopfhörer..."></div></div>
+      </div>
+      <div class="br"><button class="btn btn-p" onclick="gen('widerruf')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg> Brief erstellen</button><button class="btn btn-g" onclick="reset()">Zurücksetzen</button></div>
+    </div>
+  </div>
+
+  <!-- === BESCHWERDE === -->
+  <div class="fp" id="form-beschwerde">
+    <div class="fph"><div class="fi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5v12L3 13v-2z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg></div><div><h2>Beschwerde schreiben</h2><p>Professionell reklamieren bei schlechtem Service oder Vertragsproblemen.</p></div></div>
+    <div class="fb">
+      <div class="fs"><div class="fst"><div class="sd"></div>Absender</div>
+        <div class="fr"><div class="fd"><label>Vorname <span class="rq">*</span></label><input id="b-vorname" placeholder="Max"></div><div class="fd"><label>Nachname <span class="rq">*</span></label><input id="b-nachname" placeholder="Mustermann"></div></div>
+        <div class="fr full"><div class="fd"><label>Straße & Hausnr. <span class="rq">*</span></label><input id="b-strasse" placeholder="Musterstraße 1"></div></div>
+        <div class="fr"><div class="fd"><label>PLZ <span class="rq">*</span></label><input id="b-plz" placeholder="70123" maxlength="5"></div><div class="fd"><label>Stadt <span class="rq">*</span></label><input id="b-stadt" placeholder="Stuttgart"></div></div>
+      </div>
+      <div class="fs"><div class="fst"><div class="sd"></div>Empfänger</div>
+        <div class="fr full"><div class="fd"><label>Firmenname <span class="rq">*</span></label><input id="b-firma" placeholder="Deutsche Telekom AG"></div></div>
+        <div class="fr full"><div class="fd"><label>Abteilung / z.Hd.</label><input id="b-abt" placeholder="Beschwerdemanagement (optional)"></div></div>
+        <div class="fr full"><div class="fd"><label>Straße & Hausnr. <span class="rq">*</span></label><input id="b-e-str" placeholder="Friedrich-Ebert-Allee 140"></div></div>
+        <div class="fr"><div class="fd"><label>PLZ <span class="rq">*</span></label><input id="b-e-plz" placeholder="53113" maxlength="5"></div><div class="fd"><label>Stadt <span class="rq">*</span></label><input id="b-e-stadt" placeholder="Bonn"></div></div>
+      </div>
+      <div class="fs"><div class="fst"><div class="sd"></div>Sachverhalt</div>
+        <div class="fr"><div class="fd"><label>Kundennr. / Vorgangsnr.</label><input id="b-knr" placeholder="Optional"></div><div class="fd"><label>Datum des Vorfalls</label><input type="date" id="b-datum"></div></div>
+        <div class="fr full"><div class="fd"><label>Was ist passiert? <span class="rq">*</span></label><textarea id="b-sach" placeholder="Beschreibe kurz das Problem..."></textarea></div></div>
+        <div class="fr full"><div class="fd"><label>Was erwartest du? <span class="rq">*</span></label><textarea id="b-ford" placeholder="z.B. Erstattung, Reparatur, Gutschrift..."></textarea></div></div>
+      </div>
+      <div class="br"><button class="btn btn-p" onclick="gen('beschwerde')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg> Brief erstellen</button><button class="btn btn-g" onclick="reset()">Zurücksetzen</button></div>
+    </div>
+  </div>
+
+  <!-- === WIDERSPRUCH === -->
+  <div class="fp" id="form-widerspruch">
+    <div class="fph"><div class="fi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg></div><div><h2>Widerspruch schreiben</h2><p>Gegen Bescheid, Rechnung oder Entscheidung formell Widerspruch einlegen.</p></div></div>
+    <div class="fb">
+      <div class="fs"><div class="fst"><div class="sd"></div>Absender</div>
+        <div class="fr"><div class="fd"><label>Vorname <span class="rq">*</span></label><input id="ws-vorname" placeholder="Max"></div><div class="fd"><label>Nachname <span class="rq">*</span></label><input id="ws-nachname" placeholder="Mustermann"></div></div>
+        <div class="fr full"><div class="fd"><label>Straße & Hausnr. <span class="rq">*</span></label><input id="ws-strasse" placeholder="Musterstraße 1"></div></div>
+        <div class="fr"><div class="fd"><label>PLZ <span class="rq">*</span></label><input id="ws-plz" placeholder="70123" maxlength="5"></div><div class="fd"><label>Stadt <span class="rq">*</span></label><input id="ws-stadt" placeholder="Stuttgart"></div></div>
+      </div>
+      <div class="fs"><div class="fst"><div class="sd"></div>Empfänger</div>
+        <div class="fr full"><div class="fd"><label>Behörde / Firma <span class="rq">*</span></label><input id="ws-firma" placeholder="AOK Baden-Württemberg"></div></div>
+        <div class="fr full"><div class="fd"><label>Abteilung / z.Hd.</label><input id="ws-abt" placeholder="Widerspruchsstelle (optional)"></div></div>
+        <div class="fr full"><div class="fd"><label>Straße & Hausnr. <span class="rq">*</span></label><input id="ws-e-str" placeholder="Heilbronner Str. 4"></div></div>
+        <div class="fr"><div class="fd"><label>PLZ <span class="rq">*</span></label><input id="ws-e-plz" placeholder="70191" maxlength="5"></div><div class="fd"><label>Stadt <span class="rq">*</span></label><input id="ws-e-stadt" placeholder="Stuttgart"></div></div>
+      </div>
+      <div class="fs"><div class="fst"><div class="sd"></div>Bescheid-Details</div>
+        <div class="fr"><div class="fd"><label>Aktenzeichen / Bescheid-Nr. <span class="rq">*</span></label><input id="ws-az" placeholder="AZ: 123/456/789"></div><div class="fd"><label>Datum des Bescheids <span class="rq">*</span></label><input type="date" id="ws-datum"></div></div>
+        <div class="fr full"><div class="fd"><label>Begründung <span class="rq">*</span></label><textarea id="ws-begr" placeholder="Warum ist der Bescheid falsch?"></textarea></div></div>
+      </div>
+      <div class="br"><button class="btn btn-p" onclick="gen('widerspruch')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg> Brief erstellen</button><button class="btn btn-g" onclick="reset()">Zurücksetzen</button></div>
+    </div>
+  </div>
+
+  <!-- === MIETMANGEL === -->
+  <div class="fp" id="form-mietmangel">
+    <div class="fph"><div class="fi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div><h2>Mängelanzeige schreiben</h2><p>Vermieter über Mängel informieren und Beseitigung fordern (§ 536 BGB).</p></div></div>
+    <div class="fb">
+      <div class="fs"><div class="fst"><div class="sd"></div>Absender (Mieter)</div>
+        <div class="fr"><div class="fd"><label>Vorname <span class="rq">*</span></label><input id="m-vorname" placeholder="Max"></div><div class="fd"><label>Nachname <span class="rq">*</span></label><input id="m-nachname" placeholder="Mustermann"></div></div>
+        <div class="fr full"><div class="fd"><label>Straße & Hausnr. (Mietobjekt) <span class="rq">*</span></label><input id="m-strasse" placeholder="Musterstraße 1"></div></div>
+        <div class="fr"><div class="fd"><label>PLZ <span class="rq">*</span></label><input id="m-plz" placeholder="70123" maxlength="5"></div><div class="fd"><label>Stadt <span class="rq">*</span></label><input id="m-stadt" placeholder="Stuttgart"></div></div>
+      </div>
+      <div class="fs"><div class="fst"><div class="sd"></div>Empfänger (Vermieter)</div>
+        <div class="fr full"><div class="fd"><label>Name / Hausverwaltung <span class="rq">*</span></label><input id="m-firma" placeholder="Immobilien Müller GmbH"></div></div>
+        <div class="fr full"><div class="fd"><label>z.Hd. / Ansprechpartner</label><input id="m-abt" placeholder="Herr Müller (optional)"></div></div>
+        <div class="fr full"><div class="fd"><label>Straße & Hausnr. <span class="rq">*</span></label><input id="m-e-str" placeholder="Verwalterweg 10"></div></div>
+        <div class="fr"><div class="fd"><label>PLZ <span class="rq">*</span></label><input id="m-e-plz" placeholder="70199" maxlength="5"></div><div class="fd"><label>Stadt <span class="rq">*</span></label><input id="m-e-stadt" placeholder="Stuttgart"></div></div>
+      </div>
+      <div class="fs"><div class="fst"><div class="sd"></div>Mangel</div>
+        <div class="fr full"><div class="fd"><label>Beschreibung <span class="rq">*</span></label><textarea id="m-mangel" placeholder="z.B. Schimmel im Bad, defekte Heizung..."></textarea></div></div>
+        <div class="fr"><div class="fd"><label>Mangel besteht seit</label><input type="date" id="m-seit"></div><div class="fd"><label>Frist zur Beseitigung</label><select id="m-frist"><option value="14">14 Tage</option><option value="7">7 Tage (dringend)</option><option value="30">30 Tage</option></select></div></div>
+      </div>
+      <div class="br"><button class="btn btn-p" onclick="gen('mietmangel')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg> Brief erstellen</button><button class="btn btn-g" onclick="reset()">Zurücksetzen</button></div>
+    </div>
+  </div>
+
+  <!-- === FRISTSETZUNG === -->
+  <div class="fp" id="form-fristsetzung">
+    <div class="fph"><div class="fi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div><h2>Fristsetzung / Mahnung</h2><p>Frist für ausstehende Leistungen, Zahlungen oder Reparaturen setzen.</p></div></div>
+    <div class="fb">
+      <div class="fs"><div class="fst"><div class="sd"></div>Absender</div>
+        <div class="fr"><div class="fd"><label>Vorname <span class="rq">*</span></label><input id="f-vorname" placeholder="Max"></div><div class="fd"><label>Nachname <span class="rq">*</span></label><input id="f-nachname" placeholder="Mustermann"></div></div>
+        <div class="fr full"><div class="fd"><label>Straße & Hausnr. <span class="rq">*</span></label><input id="f-strasse" placeholder="Musterstraße 1"></div></div>
+        <div class="fr"><div class="fd"><label>PLZ <span class="rq">*</span></label><input id="f-plz" placeholder="70123" maxlength="5"></div><div class="fd"><label>Stadt <span class="rq">*</span></label><input id="f-stadt" placeholder="Stuttgart"></div></div>
+      </div>
+      <div class="fs"><div class="fst"><div class="sd"></div>Empfänger</div>
+        <div class="fr full"><div class="fd"><label>Firma / Name <span class="rq">*</span></label><input id="f-firma" placeholder="Handwerker Meier GmbH"></div></div>
+        <div class="fr full"><div class="fd"><label>Abteilung / z.Hd.</label><input id="f-abt" placeholder="Optional"></div></div>
+        <div class="fr full"><div class="fd"><label>Straße & Hausnr. <span class="rq">*</span></label><input id="f-e-str" placeholder="Handwerkerstr. 5"></div></div>
+        <div class="fr"><div class="fd"><label>PLZ <span class="rq">*</span></label><input id="f-e-plz" placeholder="70178" maxlength="5"></div><div class="fd"><label>Stadt <span class="rq">*</span></label><input id="f-e-stadt" placeholder="Stuttgart"></div></div>
+      </div>
+      <div class="fs"><div class="fst"><div class="sd"></div>Forderung</div>
+        <div class="fr full"><div class="fd"><label>Was wird eingefordert? <span class="rq">*</span></label><textarea id="f-ford" placeholder="z.B. Lieferung der bestellten Ware, Rückzahlung..."></textarea></div></div>
+        <div class="fr"><div class="fd"><label>Bezug / Rechnungsnr.</label><input id="f-bezug" placeholder="Optional"></div><div class="fd"><label>Frist</label><select id="f-frist"><option value="14">14 Tage</option><option value="7">7 Tage</option><option value="30">30 Tage</option></select></div></div>
+      </div>
+      <div class="br"><button class="btn btn-p" onclick="gen('fristsetzung')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg> Brief erstellen</button><button class="btn btn-g" onclick="reset()">Zurücksetzen</button></div>
+    </div>
+  </div>
+
+  <!-- === OUTPUT === -->
+  <div class="op" id="outP">
+    <div class="ot">
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <h2>Dein Brief</h2><div class="din-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> DIN 5008</div>
+      </div>
+      <div class="oa">
+        <button class="btn btn-p btn-sm" onclick="copyL()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg> Kopieren</button>
+        <button class="btn btn-g btn-sm" onclick="window.print()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6"/><rect x="6" y="14" width="12" height="8" rx="1"/></svg> Drucken</button>
+      </div>
+    </div>
+    <div class="lf"><div class="li">
+      <div class="lab"></div>
+      <div class="l-sender" id="lS"></div>
+      <div class="l-rueck" id="lR"></div>
+      <div class="l-empf" id="lE"></div>
+      <div class="l-date" id="lD"></div>
+      <div class="l-betreff" id="lB"></div>
+      <div class="l-body" id="lBo"></div>
+      <div class="l-sig" id="lSig"></div>
+    </div></div>
+    <div class="ss" id="shareS">
+      <p><strong>Hat QuickBrief geholfen?</strong> Teile es – damit andere auch Zeit sparen.</p>
+      <div class="sbs">
+        <button class="sb" onclick="sW()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg> WhatsApp</button>
+        <button class="sb" onclick="sT()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg> Telegram</button>
+        <button class="sb" onclick="sX()"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg> Twitter</button>
+        <button class="sb" onclick="sL()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> Link kopieren</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="sf">
+  <p>QuickBrief — Erstellt von <a href="https://github.com/BEKO2210" target="_blank" rel="noopener">Belkis Aslani</a></p>
+  <div class="sf-socials">
+    <a href="https://github.com/BEKO2210" target="_blank" rel="noopener" title="GitHub"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.11.82-.26.82-.58v-2.16c-3.34.73-4.04-1.61-4.04-1.61a3.18 3.18 0 0 0-1.33-1.76c-1.09-.74.08-.73.08-.73a2.52 2.52 0 0 1 1.84 1.24 2.56 2.56 0 0 0 3.5 1 2.56 2.56 0 0 1 .76-1.61c-2.67-.3-5.47-1.33-5.47-5.93a4.64 4.64 0 0 1 1.24-3.22 4.3 4.3 0 0 1 .12-3.18s1-.32 3.3 1.23a11.38 11.38 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23a4.3 4.3 0 0 1 .12 3.18 4.64 4.64 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92a2.87 2.87 0 0 1 .82 2.23v3.29c0 .32.21.7.82.58A12 12 0 0 0 12 .3"/></svg></a>
+    <a href="https://x.com/XxBeko88xX" target="_blank" rel="noopener" title="X / Twitter"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+    <a href="https://www.instagram.com/_b_to_the_kiss_/" target="_blank" rel="noopener" title="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg></a>
+  </div>
+  <div class="sf-legal">
+    <a href="#" onclick="openModal('impressum');return false">Impressum</a>
+    <span>&middot;</span>
+    <a href="#" onclick="openModal('datenschutz');return false">Datenschutz</a>
+  </div>
+  <p class="leg">Die generierten Briefe dienen als Muster und ersetzen keine Rechtsberatung.</p>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<!-- IMPRESSUM -->
+<div class="modal-overlay" id="modal-impressum" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="modal-head">
+      <h2>Impressum</h2>
+      <button class="modal-close" onclick="closeModal()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+    </div>
+    <div class="modal-body">
+      <h3>Angaben gemäß § 5 TMG / § 18 Abs. 2 MStV</h3>
+      <div class="legal-contact">
+        <strong>Belkis Aslani</strong><br>
+        Vogelsangstraße 32<br>
+        71691 Freiberg am Neckar<br>
+        Deutschland
+      </div>
+
+      <h3>Kontakt</h3>
+      <div class="legal-contact">
+        E-Mail: <a href="mailto:belkis.aslani@gmail.com">belkis.aslani@gmail.com</a><br>
+        Telefon: <a href="tel:+4917681462526">+49 176 81462526</a>
+      </div>
+
+      <h3>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h3>
+      <p>Belkis Aslani<br>Vogelsangstraße 32<br>71691 Freiberg am Neckar</p>
+
+      <h3>Haftung für Inhalte</h3>
+      <p>Die Inhalte dieser Seite wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte kann jedoch keine Gewähr übernommen werden. Als Diensteanbieter bin ich gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Gemäß §§ 8 bis 10 TMG bin ich als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen.</p>
+
+      <h3>Haftung für Links</h3>
+      <p>Diese Seite enthält Links zu externen Websites Dritter, auf deren Inhalte ich keinen Einfluss habe. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber verantwortlich. Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht zumutbar.</p>
+
+      <h3>Urheberrecht</h3>
+      <p>Die durch den Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechts bedürfen der schriftlichen Zustimmung des Autors.</p>
+
+      <h3>Hinweis</h3>
+      <p>Die generierten Musterbriefe dienen ausschließlich als Formulierungshilfe und ersetzen keine individuelle Rechtsberatung. Für die rechtliche Wirksamkeit der erstellten Schreiben wird keine Haftung übernommen.</p>
+    </div>
+  </div>
+</div>
+
+<!-- DATENSCHUTZ -->
+<div class="modal-overlay" id="modal-datenschutz" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="modal-head">
+      <h2>Datenschutzerklärung</h2>
+      <button class="modal-close" onclick="closeModal()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+    </div>
+    <div class="modal-body">
+      <h3>1. Verantwortlicher</h3>
+      <div class="legal-contact">
+        <strong>Belkis Aslani</strong><br>
+        Vogelsangstraße 32<br>
+        71691 Freiberg am Neckar<br>
+        Deutschland<br><br>
+        E-Mail: <a href="mailto:belkis.aslani@gmail.com">belkis.aslani@gmail.com</a><br>
+        Telefon: <a href="tel:+4917681462526">+49 176 81462526</a>
+      </div>
+
+      <h3>2. Allgemeines zur Datenverarbeitung</h3>
+      <p>QuickBrief ist eine rein clientseitige Webanwendung. <strong>Alle eingegebenen Daten (Namen, Adressen, Vertragsnummern etc.) werden ausschließlich lokal in Ihrem Browser verarbeitet</strong> und zu keinem Zeitpunkt an einen Server übertragen, gespeichert oder von mir eingesehen. Es findet keine serverseitige Datenverarbeitung Ihrer Formulareingaben statt.</p>
+
+      <h3>3. Hosting – GitHub Pages</h3>
+      <p>Diese Website wird über <strong>GitHub Pages</strong> (GitHub Inc., 88 Colin P Kelly Jr St, San Francisco, CA 94107, USA / Microsoft Corporation) gehostet. Beim Aufruf der Seite werden automatisch Verbindungsdaten (z. B. IP-Adresse, Datum, Uhrzeit, Browsertyp) an die Server von GitHub übermittelt. Dies ist technisch notwendig zur Auslieferung der Website.</p>
+      <p>Weitere Informationen finden Sie in der <a href="https://docs.github.com/de/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">Datenschutzerklärung von GitHub</a>.</p>
+      <p>Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der Bereitstellung der Website).</p>
+
+      <h3>4. Google Fonts</h3>
+      <p>Diese Seite nutzt Schriftarten von <strong>Google Fonts</strong> (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland). Beim Laden der Seite stellt Ihr Browser eine Verbindung zu Google-Servern her, wobei Ihre IP-Adresse an Google übermittelt wird.</p>
+      <p>Weitere Informationen: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Datenschutzerklärung</a>.</p>
+      <p>Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einheitlicher Darstellung).</p>
+
+      <h3>5. Lokale Speicherung (localStorage)</h3>
+      <p>QuickBrief verwendet den <strong>localStorage</strong> Ihres Browsers, um einen anonymen Nutzungszähler zu speichern. Es werden dabei <strong>keine personenbezogenen Daten</strong> erfasst – lediglich eine Zahl. Diese Daten verlassen Ihren Browser nicht und können jederzeit über die Browsereinstellungen gelöscht werden.</p>
+
+      <h3>6. Cookies</h3>
+      <p>Diese Website verwendet <strong>keine Cookies</strong>.</p>
+
+      <h3>7. Analyse- und Tracking-Tools</h3>
+      <p>Es werden <strong>keine Analyse- oder Tracking-Tools</strong> (wie Google Analytics, Matomo o. ä.) eingesetzt.</p>
+
+      <h3>8. Teilen-Funktion</h3>
+      <p>QuickBrief bietet Buttons zum Teilen über WhatsApp, Telegram und Twitter/X an. Beim Klick auf diese Buttons wird lediglich ein Link mit vorformuliertem Text an den jeweiligen Dienst übergeben. Eine Datenübertragung findet erst statt, wenn Sie den Teilen-Vorgang aktiv bestätigen. Es werden keine Daten an diese Dienste übermittelt, solange Sie die Buttons nicht nutzen.</p>
+
+      <h3>9. Ihre Rechte (Art. 15–21 DSGVO)</h3>
+      <p>Sie haben jederzeit das Recht auf:</p>
+      <ul>
+        <li><strong>Auskunft</strong> über Ihre gespeicherten Daten (Art. 15 DSGVO)</li>
+        <li><strong>Berichtigung</strong> unrichtiger Daten (Art. 16 DSGVO)</li>
+        <li><strong>Löschung</strong> Ihrer Daten (Art. 17 DSGVO)</li>
+        <li><strong>Einschränkung</strong> der Verarbeitung (Art. 18 DSGVO)</li>
+        <li><strong>Datenübertragbarkeit</strong> (Art. 20 DSGVO)</li>
+        <li><strong>Widerspruch</strong> gegen die Verarbeitung (Art. 21 DSGVO)</li>
+      </ul>
+      <p>Da QuickBrief keine personenbezogenen Daten speichert oder verarbeitet, liegen in der Regel keine löschbaren Daten vor. Bei Fragen wenden Sie sich bitte an: <a href="mailto:belkis.aslani@gmail.com">belkis.aslani@gmail.com</a></p>
+
+      <h3>10. Beschwerderecht</h3>
+      <p>Sie haben das Recht, sich bei einer Datenschutz-Aufsichtsbehörde zu beschweren, wenn Sie der Meinung sind, dass die Verarbeitung Ihrer Daten gegen die DSGVO verstößt.</p>
+      <p>Zuständige Aufsichtsbehörde:<br>Der Landesbeauftragte für den Datenschutz und die Informationsfreiheit Baden-Württemberg<br><a href="https://www.baden-wuerttemberg.datenschutz.de" target="_blank" rel="noopener">www.baden-wuerttemberg.datenschutz.de</a></p>
+
+      <h3>11. Änderungen</h3>
+      <p>Diese Datenschutzerklärung ist aktuell gültig (Stand: Februar 2026). Ich behalte mir vor, sie bei Bedarf anzupassen.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+let curT=null;
+const $=id=>document.getElementById(id),v=id=>{const e=$(id);return e?e.value.trim():''};
+const tdy=()=>new Date().toLocaleDateString('de-DE',{day:'2-digit',month:'long',year:'numeric'});
+const fD=d=>d?new Date(d).toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit',year:'numeric'}):'___________';
+const futD=n=>{const d=new Date();d.setDate(d.getDate()+parseInt(n));return d.toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit',year:'numeric'})};
+
+// Counter
+(()=>{let c=localStorage.getItem('qb');if(!c){c=12847+Math.floor(Math.random()*300);localStorage.setItem('qb',c)}$('navC').textContent=Number(c).toLocaleString('de-DE')})();
+function bump(){let c=parseInt(localStorage.getItem('qb')||'12847');c++;localStorage.setItem('qb',c);$('navC').textContent=c.toLocaleString('de-DE')}
+
+// Address helpers
+const sA=p=>({name:`${v(p+'-vorname')} ${v(p+'-nachname')}`,full:`${v(p+'-vorname')} ${v(p+'-nachname')}\n${v(p+'-strasse')}\n${v(p+'-plz')} ${v(p+'-stadt')}`});
+const eA=p=>{const a=v(p+'-abt');let l=v(p+'-firma');if(a)l+='\n'+a;l+='\n'+v(p+'-e-str')+'\n'+v(p+'-e-plz')+' '+v(p+'-e-stadt');return l};
+const rZ=p=>`${v(p+'-vorname')} ${v(p+'-nachname')} · ${v(p+'-strasse')} · ${v(p+'-plz')} ${v(p+'-stadt')}`;
+
+// Category select
+function sel(el){
+  document.querySelectorAll('.cc').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');curT=el.dataset.t;
+  document.querySelectorAll('.fp').forEach(f=>f.classList.remove('visible'));
+  $('form-'+curT).classList.add('visible');
+  $('outP').classList.remove('visible');$('shareS').classList.remove('visible');
+  setTimeout(()=>$('form-'+curT).scrollIntoView({behavior:'smooth',block:'start'}),100);
+}
+
+// Generators
+const G={
+  kuendigung:()=>{
+    const s=sA('k'),vnr=v('k-vnr'),t=v('k-termin'),anm=v('k-anm');
+    const tT=t==='nächstmöglich'?'nächstmöglichen Zeitpunkt':t==='monatsende'?'Ende des laufenden Monats':'Ende der aktuellen Vertragslaufzeit';
+    return{s:s.full,r:rZ('k'),e:eA('k'),d:`${v('k-stadt')}, den ${tdy()}`,
+      b:`Kündigung${vnr?' – Vertragsnr. '+vnr:''}`,
+      bo:`Sehr geehrte Damen und Herren,\n\nhiermit kündige ich den mit Ihnen bestehenden Vertrag${vnr?' (Nr. '+vnr+')':''} ordentlich und fristgerecht zum ${tT}.\n\nBitte bestätigen Sie mir den Eingang dieser Kündigung sowie den genauen Beendigungszeitpunkt schriftlich.\n\nIch bitte Sie, mir keine weiteren Angebote zu unterbreiten.${anm?'\n\n'+anm:''}\n\nSollte ich bis zum genannten Termin keine Bestätigung erhalten, werde ich erneut auf Sie zukommen.`,
+      n:s.name};
+  },
+  widerruf:()=>{
+    const s=sA('w');
+    return{s:s.full,r:rZ('w'),e:eA('w'),d:`${v('w-stadt')}, den ${tdy()}`,
+      b:`Widerruf meiner Bestellung – Nr. ${v('w-bnr')}`,
+      bo:`Sehr geehrte Damen und Herren,\n\nhiermit widerrufe ich gemäß § 355 BGB fristgerecht den von mir geschlossenen Kaufvertrag über folgende Ware:\n\nBestellnummer: ${v('w-bnr')}\nBestelldatum: ${fD(v('w-datum'))}\nBestellte Ware: ${v('w-ware')}\n\nBitte erstatten Sie mir den gezahlten Kaufpreis unverzüglich, spätestens jedoch innerhalb von 14 Tagen nach Zugang dieses Widerrufs, auf dem ursprünglichen Zahlungsweg zurück.\n\nSofern die Ware bereits geliefert wurde, bitte ich um Mitteilung, wie die Rücksendung erfolgen soll.`,
+      n:s.name};
+  },
+  beschwerde:()=>{
+    const s=sA('b'),knr=v('b-knr'),dat=v('b-datum');
+    return{s:s.full,r:rZ('b'),e:eA('b'),d:`${v('b-stadt')}, den ${tdy()}`,
+      b:`Beschwerde${knr?' – Kd.-Nr. '+knr:''}`,
+      bo:`Sehr geehrte Damen und Herren,\n\nmit diesem Schreiben möchte ich mich über folgenden Sachverhalt beschweren${dat?', der sich am '+fD(dat)+' ereignet hat':''}:\n\n${v('b-sach')}\n\nDies ist für mich nicht akzeptabel. Ich erwarte daher folgende Lösung:\n\n${v('b-ford')}\n\nIch bitte Sie, sich innerhalb von 14 Tagen zu diesem Vorgang zu äußern und die genannten Maßnahmen einzuleiten. Sollte ich bis dahin keine zufriedenstellende Antwort erhalten, behalte ich mir weitere Schritte vor.`,
+      n:s.name};
+  },
+  widerspruch:()=>{
+    const s=sA('ws');
+    return{s:s.full,r:rZ('ws'),e:eA('ws'),d:`${v('ws-stadt')}, den ${tdy()}`,
+      b:`Widerspruch gegen Ihren Bescheid vom ${fD(v('ws-datum'))}\nAktenzeichen: ${v('ws-az')}`,
+      bo:`Sehr geehrte Damen und Herren,\n\nhiermit lege ich form- und fristgerecht Widerspruch gegen den oben genannten Bescheid vom ${fD(v('ws-datum'))} ein.\n\nBegründung:\n\n${v('ws-begr')}\n\nIch bitte Sie, den Bescheid unter Berücksichtigung meiner Einwände zu überprüfen und mir einen rechtsmittelfähigen Widerspruchsbescheid zuzustellen.\n\nBis zur endgültigen Klärung bitte ich um Aussetzung der Vollziehung gemäß § 80 Abs. 4 VwGO.`,
+      n:s.name};
+  },
+  mietmangel:()=>{
+    const s=sA('m'),seit=v('m-seit'),fr=v('m-frist');
+    return{s:s.full,r:rZ('m'),e:eA('m'),d:`${v('m-stadt')}, den ${tdy()}`,
+      b:`Mängelanzeige gemäß § 536 BGB – ${v('m-strasse')}, ${v('m-plz')} ${v('m-stadt')}`,
+      bo:`Sehr geehrte Damen und Herren,\n\nhiermit zeige ich Ihnen folgenden Mangel in meiner Mietwohnung an:\n\n${v('m-mangel')}\n\n${seit?'Dieser Mangel besteht seit dem '+fD(seit)+'.':'Der Mangel besteht bereits seit einiger Zeit.'}\n\nGemäß § 535 Abs. 1 BGB sind Sie als Vermieter verpflichtet, die Mietsache in einem vertragsgemäßen Zustand zu erhalten. Ich fordere Sie daher auf, den beschriebenen Mangel innerhalb von ${fr} Tagen (bis zum ${futD(fr)}) zu beseitigen.\n\nSollte die Mängelbeseitigung nicht fristgerecht erfolgen, behalte ich mir vor, eine Mietminderung gemäß § 536 BGB vorzunehmen sowie ggf. einen Vorschuss für die Ersatzvornahme geltend zu machen.\n\nBitte bestätigen Sie mir den Eingang dieses Schreibens und teilen Sie mir den vorgesehenen Termin zur Mängelbeseitigung mit.`,
+      n:s.name};
+  },
+  fristsetzung:()=>{
+    const s=sA('f'),bez=v('f-bezug'),fr=v('f-frist');
+    return{s:s.full,r:rZ('f'),e:eA('f'),d:`${v('f-stadt')}, den ${tdy()}`,
+      b:`Fristsetzung${bez?' – '+bez:''}`,
+      bo:`Sehr geehrte Damen und Herren,\n\nich beziehe mich auf folgenden Sachverhalt:\n\n${v('f-ford')}\n\n${bez?'Bezug: '+bez+'\n\n':''}Trotz Fälligkeit ist die genannte Leistung bisher nicht erbracht worden. Hiermit setze ich Ihnen eine Frist von ${fr} Tagen (bis zum ${futD(fr)}), um die ausstehende Leistung vollständig zu erbringen.\n\nSollten Sie dieser Aufforderung nicht fristgerecht nachkommen, behalte ich mir vor, ohne weitere Ankündigung rechtliche Schritte einzuleiten und/oder Schadensersatz geltend zu machen.`,
+      n:s.name};
+  }
+};
+
+function gen(type){
+  const d=G[type]();if(!d)return;
+  $('lS').textContent=d.s;$('lR').textContent=d.r;$('lE').textContent=d.e;
+  $('lD').textContent=d.d;$('lB').textContent=d.b;$('lBo').textContent=d.bo;
+  $('lSig').innerHTML=`Mit freundlichen Grüßen\n\n\n<span class="sn">${d.n}</span>`;
+  $('outP').classList.add('visible');$('shareS').classList.add('visible');
+  bump();setTimeout(()=>$('outP').scrollIntoView({behavior:'smooth',block:'start'}),100);
+}
+
+function copyL(){
+  const t=['lS','lR','lE','lD','lB','lBo','lSig'].map(id=>$(id).textContent).join('\n\n');
+  navigator.clipboard.writeText(t).then(()=>toast(_ci+' In die Zwischenablage kopiert!')).catch(()=>{
+    const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();document.execCommand('copy');document.body.removeChild(a);toast(_ci+' Kopiert!');
+  });
+}
+
+function reset(){
+  if(!curT)return;const p=$('form-'+curT);
+  p.querySelectorAll('input,textarea').forEach(e=>e.value='');
+  p.querySelectorAll('select').forEach(e=>e.selectedIndex=0);
+  $('outP').classList.remove('visible');$('shareS').classList.remove('visible');
+}
+
+const _ci='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+const _li='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>';
+function toast(m){const t=$('toast');t.innerHTML=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500)}
+
+const sU=()=>encodeURIComponent(location.href),sT2=()=>encodeURIComponent('Professionelle Briefe in 30 Sekunden – kostenlos mit QuickBrief! 📄');
+function sW(){open(`https://wa.me/?text=${sT2()}%20${sU()}`,'_blank')}
+function sT(){open(`https://t.me/share/url?url=${sU()}&text=${sT2()}`,'_blank')}
+function sX(){open(`https://twitter.com/intent/tweet?text=${sT2()}&url=${sU()}`,'_blank')}
+function sL(){navigator.clipboard.writeText(location.href).then(()=>toast(_li+' Link kopiert!'))}
+
+document.addEventListener('keydown',e=>{
+if((e.ctrlKey||e.metaKey)&&e.key==='Enter'&&curT)gen(curT);
+if(e.key==='Escape')closeModal();
+});
+
+// Modal
+function openModal(id){const m=$('modal-'+id);if(m){m.classList.add('open');document.body.style.overflow='hidden'}}
+function closeModal(){document.querySelectorAll('.modal-overlay.open').forEach(m=>m.classList.remove('open'));document.body.style.overflow=''}
+
+// 30 Sekunden counter animation
+(()=>{const el=$('sec30');if(!el)return;let n=0;const t=30,dur=1200,step=dur/t;
+el.textContent='0';
+const tick=()=>{n++;el.textContent=n;el.style.transform='scale(1.15)';
+setTimeout(()=>el.style.transform='scale(1)',80);
+if(n<t)setTimeout(tick,step)};setTimeout(tick,700)})();
+
+// Ripple effect on buttons & cards
+document.querySelectorAll('.btn,.sb,.cc').forEach(el=>{
+el.addEventListener('click',e=>{const r=document.createElement('span');r.className='ripple';
+const rect=el.getBoundingClientRect(),sz=Math.max(rect.width,rect.height);
+r.style.width=r.style.height=sz+'px';
+r.style.left=(e.clientX-rect.left-sz/2)+'px';
+r.style.top=(e.clientY-rect.top-sz/2)+'px';
+el.appendChild(r);r.addEventListener('animationend',()=>r.remove())})});
+
+// Service Worker Registration
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>{
+    navigator.serviceWorker.register('./sw.js').then(reg=>{
+      console.log('SW registered, scope:',reg.scope);
+    }).catch(err=>console.log('SW registration failed:',err));
+  });
+}
+</script>
+</body>
+</html>
