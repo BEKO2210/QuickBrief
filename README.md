@@ -2,7 +2,6 @@
 
 <img src="assets/icon.png" alt="QuickBrief Logo" width="160">
 
-# QuickBrief
 
 **Professionelle Musterbriefe in 30 Sekunden.**
 
